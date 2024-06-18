@@ -10,7 +10,7 @@
         "--extensionDevelopmentPath=${workspaceFolder}"
       ],
       "outFiles": [
-        "${workspaceFolder}/lib"
+        "${workspaceFolder}/lib/*.js"
       ]
     }
   ]

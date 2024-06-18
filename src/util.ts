@@ -24,10 +24,11 @@ export function detokenizeVariables(rawValue: string, recursive = false): string
             break;
         }
     }
-    let parsedPath = path.parse(absoluteFilePath);
     rawValue = rawValue.replace(/\${fileWorkspaceFolder}/g, activeWorkspace?.uri.fsPath ?? "");
     rawValue = rawValue.replace(/\${relativeFile}/g, relativeFilePath ?? "");
     rawValue = rawValue.replace(/\${relativeFileDirname}/g, relativeFilePath?.substr(0, relativeFilePath.lastIndexOf(path.sep)) ?? "");
+	if(!absoluteFilePath) return rawValue;
+    let parsedPath = path.parse(absoluteFilePath);
     rawValue = rawValue.replace(/\${fileBasename}/g, parsedPath.base ?? "");
     rawValue = rawValue.replace(/\${fileBasenameNoExtension}/g, parsedPath.name ?? "");
     rawValue = rawValue.replace(/\${fileExtname}/g, parsedPath.ext ?? "");

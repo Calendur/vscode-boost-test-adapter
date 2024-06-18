@@ -17,7 +17,7 @@ from the Testing sidebar of VS Code.
 
 ## Configurations
 ```json
-    "boost-test-adapter-feher.tests": [
+    "boost-test-adapter-robaho.tests": [
         {
             // Mandatory
             "testExecutables": [
@@ -98,10 +98,14 @@ from the Testing sidebar of VS Code.
 
 ## Credits
 This extension is based on code from these extensions:
+- https://github.com/feheren/vscode-boost-test-adapter
 - https://github.com/firoorg/vscode-boost-test-adapter
 - https://github.com/newdigate/vscode-boost-test-adapter.git
 
 ## Changelog
+* Update 3.3.0
+  * Fix handling of boost run errors that don't have parenthesis around the line number.
+  * Fix handling of source paths 
 * Update 3.2.3
   * Add `Copy Path` and `Copy Relative Path` commands to the context menu.
   * Add `Copy Boost.Test ID` command to the conext menu. It allows to copy the Boost test ID (test path) of a
