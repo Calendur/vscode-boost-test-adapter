@@ -4,8 +4,8 @@ import * as util from './util';
 import { resolve } from 'path';
 
 // IMPORTANT: Use the same name in package.json!
-export const BoosTestAdapterExtensionName = "boost-test-adapter-feher";
-export const BoosTestAdapterConfig = "boost-test-adapter-feher";
+export const BoosTestAdapterExtensionName = "boost-test-adapter-robaho";
+export const BoosTestAdapterConfig = "boost-test-adapter-robaho";
 
 export interface TestExe {
     path: string;
@@ -78,6 +78,8 @@ export async function getConfig(workspaceFolder: vscode.WorkspaceFolder, log: lo
                 }
                 testExe.cwd = util.detokenizeVariables(cfgTest.cwd);
             }
+
+			cfgTest.sourcePrefix = cfgTest.sourcePrefix ?? '';
 
             if (cfgTest.sourcePrefix !== undefined) {
                 if (typeof cfgTest.sourcePrefix !== 'string') {
