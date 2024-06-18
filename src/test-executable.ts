@@ -27,8 +27,8 @@ export class TestExecutable {
     private readonly regexLeaveTestSuite = /^(.+): Leaving test suite "(\w+)"(?:; testing time: (\d+)(\w+))?$/;
     private readonly regexEnterTestCase = /^(.+): Entering test case "(\w+)"$/;
     private readonly regexLeaveTestCase = /^(.+): Leaving test case "(\w+)"(?:; testing time: (\d+)(\w+))?$/;
-    private readonly regexTestCaseError = /^(.+)\(([0-9]+)\): error: in "([\w\/]+)": (.+)$/;
-    private readonly regexTestCaseFatalError = /^(.+)\(([0-9]+)\): fatal error: in "([\w\/]+)": (.+)$/;
+    private readonly regexTestCaseError = /^(.+):\(?([0-9]+)\)?: error: in "([\w\/]+)": (.+)$/;
+    private readonly regexTestCaseFatalError = /^(.+):\(?([0-9]+)\)?: fatal error: in "([\w\/]+)": (.+)$/;
 
     constructor(
         readonly testExeTestItemId: string,
@@ -218,9 +218,11 @@ export class TestExecutable {
             if (file !== 'unknown location') {
                 const lineStr = m[2];
                 const lineNum = Math.max(0, Number(lineStr) - 1);
-                const uri = vscode.Uri.file(file);
+				const _file = this.cfg.sourcePrefix ? resolve(this.cfg.sourcePrefix, file) : file;
+                const uri = vscode.Uri.file(_file);
                 const pos = new vscode.Position(lineNum, 0);
                 msg.location = new vscode.Location(uri, pos);
+				this.log.info(`error file ${file} uri ${uri} location ${JSON.stringify(msg.location)}`);
             }
             errors.push(msg);
         }
