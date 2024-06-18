@@ -74,7 +74,7 @@ from the Testing sidebar of VS Code.
 ## FAQ
 1. I don't see any tests in the Testing sidebar. Why?
    - Make sure you have configured your `settings.json` and `launch.json` properly.
-     - Take a look at the `Boost.Test Adapter` Output channel for potential issues.
+     - Take a look at the `Boost.Test Run/Debug` Output channel for potential issues.
    - Press the reload button at the top of the Testing sidebar.
    - Restart VS Code.
 2. What is this weird root node in the test tree?
