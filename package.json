@@ -15,12 +15,14 @@
     "url": "https://github.com/robaho/vscode-boost-test-adapter/issues"
   },
   "categories": [
-    "Other"
+    "Testing"
   ],
   "keywords": [
     "boost",
     "test",
-    "testing"
+    "testing",
+	"cpp",
+	"c++"
   ],
   "icon": "icon.png",
   "main": "lib/main.js",
