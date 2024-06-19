@@ -1,6 +1,6 @@
 {
   "name": "boost-test-adapter-robaho",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "displayName": "Boost.Test Run/Debug",
   "description": "Run or debug your Boost.Test tests in the Sidebar of Visual Studio Code",
   "author": "Robert Engels",
@@ -21,8 +21,8 @@
     "boost",
     "test",
     "testing",
-	"cpp",
-	"c++"
+    "cpp",
+    "c++"
   ],
   "icon": "icon.png",
   "main": "lib/main.js",
