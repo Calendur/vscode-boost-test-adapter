@@ -2,7 +2,7 @@
 
 - Fetch npm dependencies: `npm update`
 - Build the code: `npm run-script build`
-- Run and debug: Start the `Boost.Test Explorer` launch configuration in VS Code.
+- Run and debug: Start the `Boost.Test Run/Debug` launch configuration in VS Code.
 - Create a vsix package for testing: `vsce package`
 - Publishing: https://code.visualstudio.com/api/working-with-extensions/publishing-extension
 

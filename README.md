@@ -1,4 +1,4 @@
-# Boost.Test Adapter
+# Boost.Test Run/Debug
 This extension allows you to run your [Boost.Test](https://github.com/boostorg/test) tests
 from the Testing sidebar of VS Code.
 
@@ -13,7 +13,7 @@ from the Testing sidebar of VS Code.
 * Output
   * Test output appears in the `Test Output` Terminal of the Testing sidebar.
   * During debugging the test output appears in the corresponding Terminal.
-  * Diagnostic info appears in the `Boost.Test Adapter` Output channel.
+  * Diagnostic info appears in the `Boost.Test Run/Debug` Output channel.
 
 ## Configurations
 ```json

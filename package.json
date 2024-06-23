@@ -54,7 +54,7 @@
   ],
   "contributes": {
     "configuration": {
-      "title": "Boost.Test Adapter",
+      "title": "Boost.Test Run/Debug",
       "properties": {
         "boost-test-adapter-robaho.tests": {
           "description": "Test configurations.",
