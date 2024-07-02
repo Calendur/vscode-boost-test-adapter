@@ -116,6 +116,7 @@ This extension is based on code from these extensions:
 * Update 3.65
   * Ability to use **glob** to specify tests
   * Automatically create configuration if needed.
+  * Update log file name to `Boost.Test Run/Debug` for output channel.
 * Updates 3.4 - 3.6.4
   * Update icon.
   * Update marketplace metadata.
