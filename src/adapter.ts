@@ -7,6 +7,8 @@ import * as testidutil from './testidutil';
 import * as util from './util';
 import * as model from './model';
 
+import fs = require('fs');
+
 export class BoostTestAdapter {
     private readonly mutex: Mutex = new Mutex();
     private readonly disposables: { dispose(): void }[] = [];
@@ -14,6 +16,7 @@ export class BoostTestAdapter {
     private watchers: Map<string, vscode.FileSystemWatcher> = new Map();
     private testItem: vscode.TestItem;
     private isRunCancelled = false;
+	private globWatchers : vscode.FileSystemWatcher[] = [];
 
     constructor(
         readonly adapterId: string,
@@ -38,6 +41,7 @@ export class BoostTestAdapter {
                 }
             }
         });
+
     }
 
     async reload(): Promise<void> {
@@ -58,16 +62,51 @@ export class BoostTestAdapter {
         this.clearTestExeWatchers();
         this.testExecutables.clear();
 
-        const cfg = await config.getConfig(this.workspaceFolder, this.log);
+		for(const w of this.globWatchers) {
+			w.dispose();
+		}
+		this.globWatchers = [];
+
+        var cfg = await config.getConfig(this.workspaceFolder, this.log);
+		if(cfg.testExes.length==0) {
+			config.createDefaultConfig(this.workspaceFolder,this.log);
+			cfg = await config.getConfig(this.workspaceFolder, this.log);
+		}
 
         for (const cfgTestExe of cfg.testExes) {
-            const testExeTestItemId = this.createTestExeId(cfgTestExe.path);
-            this.testExecutables.set(testExeTestItemId, new TestExecutable(
-                testExeTestItemId,
-                this.ctrl,
-                this.workspaceFolder,
-                cfgTestExe,
-                this.log));
+			if(cfgTestExe.glob) {
+				const binaries = await vscode.workspace.findFiles(cfgTestExe.glob)
+
+				const watcher = vscode.workspace.createFileSystemWatcher(cfgTestExe.glob,false,true,false);
+				watcher.onDidCreate(() => { this.reload()});
+				watcher.onDidDelete(() => { this.reload()});
+
+				this.globWatchers.push(watcher);
+	
+				for(const binary of binaries) {
+					try {
+						const newExe : config.TestExe = { ...cfgTestExe, path: binary.fsPath }
+						fs.accessSync(binary.fsPath,fs.constants.X_OK);
+
+						const testExeTestItemId = this.createTestExeId(binary.fsPath);
+						this.testExecutables.set(testExeTestItemId, new TestExecutable(
+							testExeTestItemId,
+							this.ctrl,
+							this.workspaceFolder,
+							newExe,
+							this.log));
+						} catch(ex) {}
+				}
+
+			} else {
+				const testExeTestItemId = this.createTestExeId(cfgTestExe.path);
+				this.testExecutables.set(testExeTestItemId, new TestExecutable(
+					testExeTestItemId,
+					this.ctrl,
+					this.workspaceFolder,
+					cfgTestExe,
+					this.log));
+			}
         }
     }
 

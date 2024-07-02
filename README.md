@@ -7,6 +7,8 @@ from the Testing sidebar of VS Code.
 
 ## Features
 * Tests will appear in the Testing sidebar of VS Code.
+* Automatically locate test executables using glob.
+  * Tests should end in `_test`, or `_test.exe` for windows.
 * ```run``` or ```debug``` tests 
   * from the ```Testing``` sidebar
   * from inside test source code
@@ -16,13 +18,16 @@ from the Testing sidebar of VS Code.
   * Diagnostic info appears in the `Boost.Test Run/Debug` Output channel.
 
 ## Configurations
+
+A configuration will automatically be created in the workspace settings using **glob**.
 ```json
     "boost-test-adapter-robaho.tests": [
         {
-            // Mandatory
+            // testExecutables must be provided
             "testExecutables": [
               {
-                // Mandatory: Path to a test executable. May be absolute or relative path.
+                // either path or glob must be provided
+				// path to a test executable. May be absolute or relative path.
                 "path": "build/Debug/main_test_1",
                 // Optional: Show this label in the Testing sidebar instead of the Boost Test module name.
                 "label": "Test 1 (debug)"
@@ -33,7 +38,11 @@ from the Testing sidebar of VS Code.
               },
               {
                 "path": "build/Debug/main_test_2"
-              }
+              },
+			  {
+				// a glob can match multiple test executables
+				"glob": "**/*{_test,_test.exe}",
+			  }
             ],
 
             // Optional: The working directory for the test executables.
@@ -75,6 +84,7 @@ from the Testing sidebar of VS Code.
 1. I don't see any tests in the Testing sidebar. Why?
    - Make sure you have configured your `settings.json` and `launch.json` properly.
      - Take a look at the `Boost.Test Run/Debug` Output channel for potential issues.
+	 - The automatic configuration looks for test executables ending in `_test` or `_test.exe`
    - Press the reload button at the top of the Testing sidebar.
    - Restart VS Code.
 2. What is this weird root node in the test tree?
@@ -103,9 +113,15 @@ This extension is based on code from these extensions:
 - https://github.com/newdigate/vscode-boost-test-adapter.git
 
 ## Changelog
+* Update 3.65
+  * Ability to use **glob** to specify tests
+  * Automatically create configuration if needed.
+* Updates 3.4 - 3.6.4
+  * Update icon.
+  * Update marketplace metadata.
 * Update 3.3.0
   * Fix handling of boost run errors that don't have parenthesis around the line number.
-  * Fix handling of source paths 
+  * Fix handling of source paths. 
 * Update 3.2.3
   * Add `Copy Path` and `Copy Relative Path` commands to the context menu.
   * Add `Copy Boost.Test ID` command to the conext menu. It allows to copy the Boost test ID (test path) of a

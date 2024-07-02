@@ -77,8 +77,16 @@
                     "label": {
                       "description": "Show this label in the test explorer UI instead of the Boost Test module name.",
                       "type": "string"
-                    }
-                  }
+                    },
+					"glob": {
+						"description": "Use a glob to match test executables",
+						"type": "string",
+						"default": "**/*{_test,_test.exe}"
+					}
+                  },
+				  "default": {
+					"glob": "**/*{_test,_test.exe}"
+				  }
                 }
               },
               "debugConfig": {

@@ -1,7 +1,6 @@
 import * as vscode from 'vscode';
 import * as logger from './logger';
 import * as util from './util';
-import { resolve } from 'path';
 
 // IMPORTANT: Use the same name in package.json!
 export const BoosTestAdapterExtensionName = "boost-test-adapter-robaho";
@@ -15,10 +14,16 @@ export interface TestExe {
     env?: Map<string, string>;
     cwd?: string;
     sourcePrefix?: string;
+	glob ?: string;
 }
 
 export interface TestConfig {
     testExes: TestExe[];
+}
+
+export function createDefaultConfig(workspaceFolder: vscode.WorkspaceFolder, log: logger.MyLogger) {
+    const cfg = vscode.workspace.getConfiguration(BoosTestAdapterConfig);
+	cfg.update('tests',JSON.parse('[ { "testExecutables": [ { "glob": "**/*{_test,_test.exe}" } ], "debugConfig": "Test Config" }]'));
 }
 
 export async function getConfig(workspaceFolder: vscode.WorkspaceFolder, log: logger.MyLogger): Promise<TestConfig> {
@@ -48,12 +53,14 @@ export async function getConfig(workspaceFolder: vscode.WorkspaceFolder, log: lo
         }
 
         for (const cfgTestExe of cfgTest.testExecutables) {
-            if (typeof cfgTestExe.path !== 'string') {
-                log.error(`Settings: Test executable path must be a string`, true);
+            if (typeof cfgTestExe.path !== 'string' && typeof cfgTestExe.glob !== 'string') {
+                log.error(`Settings: Test executable path or glob must be provided`, true);
                 return emptyTestConfig;
             }
+
             const testExe: TestExe = {
-                path: util.detokenizeVariables(cfgTestExe.path)
+                path: util.detokenizeVariables(cfgTestExe.path ?? ''),
+				glob: cfgTestExe.glob
             };
 
             if (cfgTestExe.label !== undefined) {
@@ -86,7 +93,7 @@ export async function getConfig(workspaceFolder: vscode.WorkspaceFolder, log: lo
                     log.error(`Settings: sourcePrefix must be a string`, true);
                     return emptyTestConfig;
                 }
-                testExe.sourcePrefix = resolve(workspaceFolder.uri.fsPath, cfgTest.sourcePrefix);
+                testExe.sourcePrefix = util.detokenizeVariables(cfgTest.sourcePrefix);
             }
 
             if (cfgTest.envFile !== undefined) {
