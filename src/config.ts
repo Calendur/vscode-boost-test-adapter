@@ -3,8 +3,8 @@ import * as logger from './logger';
 import * as util from './util';
 
 // IMPORTANT: Use the same name in package.json!
-export const BoosTestAdapterExtensionName = "boost-test-adapter-robaho";
-export const BoosTestAdapterConfig = "boost-test-adapter-robaho";
+export const BoostTestAdapterExtensionName = "boost-test-adapter-robaho";
+export const BoostTestAdapterConfig = "boost-test-adapter-robaho";
 
 export interface TestExe {
     path: string;
@@ -22,7 +22,7 @@ export interface TestConfig {
 }
 
 export function createDefaultConfig(workspaceFolder: vscode.WorkspaceFolder, log: logger.MyLogger) {
-    const cfg = vscode.workspace.getConfiguration(BoosTestAdapterConfig);
+    const cfg = vscode.workspace.getConfiguration(BoostTestAdapterConfig);
 	cfg.update('tests',JSON.parse('[ { "testExecutables": [ { "glob": "**/*{_test,_test.exe}" } ], "debugConfig": "Test Config" }]'));
 }
 
@@ -34,15 +34,15 @@ export async function getConfig(workspaceFolder: vscode.WorkspaceFolder, log: lo
         testExes: []
     };
 
-    const cfg = vscode.workspace.getConfiguration(BoosTestAdapterConfig);
+    const cfg = vscode.workspace.getConfiguration(BoostTestAdapterConfig);
 
     const cfgTests = cfg.get<Record<string, any>[]>('tests');
     if (cfgTests === undefined) {
-        log.warn(`Settings: No ${BoosTestAdapterConfig}.tests found.`);
+        log.warn(`Settings: No ${BoostTestAdapterConfig}.tests found.`);
         return emptyTestConfig;
     }
     if (cfgTests.length === 0) {
-        log.info(`Settings: ${BoosTestAdapterConfig}.tests is empty.`);
+        log.info(`Settings: ${BoostTestAdapterConfig}.tests is empty.`);
         return emptyTestConfig;
     }
 

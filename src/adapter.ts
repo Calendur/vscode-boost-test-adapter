@@ -32,7 +32,7 @@ export class BoostTestAdapter {
             this.workspaceFolder.uri);
 
         vscode.workspace.onDidChangeConfiguration(async event => {
-            if (event.affectsConfiguration(config.BoosTestAdapterConfig)) {
+            if (event.affectsConfiguration(config.BoostTestAdapterConfig)) {
                 try {
                     this.log.info("Configuration changed. Reloading tests.")
                     await this.reload();

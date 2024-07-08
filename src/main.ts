@@ -13,7 +13,7 @@ export async function activate(context: vscode.ExtensionContext) {
     log = new logger.MyLogger('Boost.Test Run/Debug');
     log.info("Extension activated.");
 
-    const ctrl = vscode.tests.createTestController(`${config.BoosTestAdapterExtensionName}.test-controller`, 'Boost.Test');
+    const ctrl = vscode.tests.createTestController(`${config.BoostTestAdapterExtensionName}.test-controller`, 'Boost.Test');
     context.subscriptions.push(ctrl);
 
     const adapterManager = new AdapterManager(ctrl, log);
@@ -46,19 +46,19 @@ export async function activate(context: vscode.ExtensionContext) {
         true);
 
     context.subscriptions.push(vscode.commands.registerCommand(
-        `${config.BoosTestAdapterExtensionName}.copyTestItemPath`,
+        `${config.BoostTestAdapterExtensionName}.copyTestItemPath`,
         (testItem: vscode.TestItem) => {
             adapterManager.commandCopyTestItemPath(testItem, false);
         }));
 
     context.subscriptions.push(vscode.commands.registerCommand(
-        `${config.BoosTestAdapterExtensionName}.copyTestItemRelativePath`,
+        `${config.BoostTestAdapterExtensionName}.copyTestItemRelativePath`,
         (testItem: vscode.TestItem) => {
             adapterManager.commandCopyTestItemPath(testItem, true);
         }));
 
     context.subscriptions.push(vscode.commands.registerCommand(
-        `${config.BoosTestAdapterExtensionName}.copyBoostTestId`,
+        `${config.BoostTestAdapterExtensionName}.copyBoostTestId`,
         (testItem: vscode.TestItem) => {
             adapterManager.commandCopyBoostTestId(testItem);
         }));
