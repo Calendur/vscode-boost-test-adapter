@@ -21,7 +21,11 @@ export interface TestConfig {
     testExes: TestExe[];
 }
 
-export function createDefaultConfig(workspaceFolder: vscode.WorkspaceFolder, log: logger.MyLogger) {
+export async function createDefaultConfig(workspaceFolder: vscode.WorkspaceFolder, log: logger.MyLogger) {
+	// only create config if workspace contains cpp files
+	const sources = await vscode.workspace.findFiles('**/*\.{cpp,h}');
+	if(sources.length==0) return;
+	log.info('found c++ source/header files, creating default configuration')
     const cfg = vscode.workspace.getConfiguration(BoostTestAdapterConfig);
 	cfg.update('tests',JSON.parse('[ { "testExecutables": [ { "glob": "**/*{_test,_test.exe}" } ], "debugConfig": "Test Config" }]'));
 }

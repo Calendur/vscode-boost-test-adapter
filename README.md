@@ -113,7 +113,9 @@ This extension is based on code from these extensions:
 - https://github.com/newdigate/vscode-boost-test-adapter.git
 
 ## Changelog
-* Update 3.65
+* Update 3.6.6
+  * Do not add default configuration to workspace unless C++ source/header files are found. 
+* Update 3.6.5
   * Ability to use **glob** to specify tests
   * Automatically create configuration if needed.
   * Update log file name to `Boost.Test Run/Debug` for output channel.

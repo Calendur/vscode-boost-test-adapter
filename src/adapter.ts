@@ -69,7 +69,7 @@ export class BoostTestAdapter {
 
         var cfg = await config.getConfig(this.workspaceFolder, this.log);
 		if(cfg.testExes.length==0) {
-			config.createDefaultConfig(this.workspaceFolder,this.log);
+			await config.createDefaultConfig(this.workspaceFolder,this.log);
 			cfg = await config.getConfig(this.workspaceFolder, this.log);
 		}
 
