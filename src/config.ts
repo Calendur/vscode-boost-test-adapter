@@ -90,7 +90,7 @@ export async function getConfig(workspaceFolder: vscode.WorkspaceFolder, log: lo
                 testExe.cwd = util.detokenizeVariables(cfgTest.cwd);
             }
 
-			cfgTest.sourcePrefix = cfgTest.sourcePrefix ?? '';
+			cfgTest.sourcePrefix = cfgTest.sourcePrefix ?? workspaceFolder.uri.fsPath;
 
             if (cfgTest.sourcePrefix !== undefined) {
                 if (typeof cfgTest.sourcePrefix !== 'string') {
