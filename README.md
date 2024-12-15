@@ -129,10 +129,9 @@ This extension is based on code from these extensions:
 - https://github.com/newdigate/vscode-boost-test-adapter.git
 
 ## Changelog
-* Update 3.6.9
+* Update 3.6.8-3.6.10
   * Allow commands inside paths and environment variables.
-* Update 3.6.8
-  * Version skipped due to fork from other version.
+  * Forked from https://github.com/robaho/vscode-boost-test-adapter.
 * Update 3.6.7
   * Use workspace folder as default source prefix.
 * Update 3.6.6
