@@ -27,7 +27,7 @@ A configuration will automatically be created in the workspace settings using **
             "testExecutables": [
               {
                 // either path or glob must be provided
-				// path to a test executable. May be absolute or relative path.
+                // path to a test executable. May be absolute or relative path.
                 "path": "build/Debug/main_test_1",
                 // Optional: Show this label in the Testing sidebar instead of the Boost Test module name.
                 "label": "Test 1 (debug)"
@@ -37,12 +37,22 @@ A configuration will automatically be created in the workspace settings using **
                 "label": "Test 1 (release)"
               },
               {
-                "path": "build/Debug/main_test_2"
+                // you can also use commands inside the path to differentiate between different cmake kits or debug/release
+                // a list of possible commands for the cmake extension can be found here:
+                //   https://github.com/microsoft/vscode-cmake-tools/blob/965b960c957f42dac4363fc6c064d34c660080b1/docs/cmake-settings.md#command-substitution
+                // cmake.buildDirectory will refer to the build directory, e.g. ${workspaceFolder}/build
+                // cmake.buildType will refer to Debug / Release / MinSizeRel / RelWithDebInfo
+                "path": "${command:cmake.buildDirectory}/{$command:cmake.buildType}/main_test_2",
+                "label": "Test 2"
               },
-			  {
-				// a glob can match multiple test executables
-				"glob": "**/*{_test,_test.exe}",
-			  }
+              {
+                // you can skip the label and only provide a path
+                "path": "build/Debug/main_test_3"
+              },
+              {
+                // a glob can match multiple test executables
+                "glob": "**/*{_test,_test.exe}",
+              }
             ],
 
             // Optional: The working directory for the test executables.
@@ -64,6 +74,12 @@ A configuration will automatically be created in the workspace settings using **
               {
                 "name": "MY_VAR",
                 "value": "my var value"
+              },
+              {
+                "name": "MY_VAR_FROM_COMMAND",
+                // ${command:...} can be used in environment variables. In this example the command testCommand
+                // will be executed and the output will be used in the variable.
+                "value": "${command:testCommand}"
               }
             ],
 
@@ -77,13 +93,12 @@ A configuration will automatically be created in the workspace settings using **
             "debugConfig": "Test config"
         }
     ]
-
 ```
 
 ## FAQ
 1. I don't see any tests in the Testing sidebar. Why?
    - Make sure you have configured your `settings.json` and `launch.json` properly.
-     - Take a look at the `Boost.Test Run/Debug` Output channel for potential issues.
+     - Take a look at the `Boost.Test Adapter` Output channel for potential issues.
 	 - The automatic configuration looks for test executables ending in `_test` or `_test.exe`
    - Press the reload button at the top of the Testing sidebar.
    - Restart VS Code.
@@ -114,6 +129,10 @@ This extension is based on code from these extensions:
 - https://github.com/newdigate/vscode-boost-test-adapter.git
 
 ## Changelog
+* Update 3.6.9
+  * Allow commands inside paths and environment variables.
+* Update 3.6.8
+  * Version skipped due to fork from other version.
 * Update 3.6.7
   * Use workspace folder as default source prefix.
 * Update 3.6.6

@@ -1,7 +1,7 @@
 {
   "name": "boost-test-adapter-calendur",
   "version": "3.6.9",
-  "displayName": "Boost.Test Adapter Calendur",
+  "displayName": "Boost.Test Adapter Extended",
   "description": "Run or debug your Boost.Test tests in the Sidebar of Visual Studio Code",
   "author": "Thomas Rohe",
   "publisher": "Calendur",
