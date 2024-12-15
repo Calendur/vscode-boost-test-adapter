@@ -10,7 +10,7 @@ export async function activate(context: vscode.ExtensionContext) {
         log.bug("The extension is already activated!");
         return;
     }
-    log = new logger.MyLogger('Boost.Test Run/Debug');
+    log = new logger.MyLogger('Boost.Test Adapter');
     log.info("Extension activated.");
 
     const ctrl = vscode.tests.createTestController(`${config.BoostTestAdapterExtensionName}.test-controller`, 'Boost.Test');

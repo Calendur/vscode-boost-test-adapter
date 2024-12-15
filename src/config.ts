@@ -63,7 +63,7 @@ export async function getConfig(workspaceFolder: vscode.WorkspaceFolder, log: lo
             }
 
             const testExe: TestExe = {
-                path: util.detokenizeVariables(cfgTestExe.path ?? ''),
+                path: await util.detokenizeVariables(cfgTestExe.path ?? ''),
 				glob: cfgTestExe.glob
             };
 
@@ -87,7 +87,7 @@ export async function getConfig(workspaceFolder: vscode.WorkspaceFolder, log: lo
                     log.error(`Settings: cwd must be a string`);
                     return emptyTestConfig;
                 }
-                testExe.cwd = util.detokenizeVariables(cfgTest.cwd);
+                testExe.cwd = await util.detokenizeVariables(cfgTest.cwd);
             }
 
 			cfgTest.sourcePrefix = cfgTest.sourcePrefix ?? workspaceFolder.uri.fsPath;
@@ -97,7 +97,7 @@ export async function getConfig(workspaceFolder: vscode.WorkspaceFolder, log: lo
                     log.error(`Settings: sourcePrefix must be a string`, true);
                     return emptyTestConfig;
                 }
-                testExe.sourcePrefix = util.detokenizeVariables(cfgTest.sourcePrefix);
+                testExe.sourcePrefix = await util.detokenizeVariables(cfgTest.sourcePrefix);
             }
 
             if (cfgTest.envFile !== undefined) {
@@ -105,7 +105,7 @@ export async function getConfig(workspaceFolder: vscode.WorkspaceFolder, log: lo
                     log.error(`Settings: envFile must be a string`, true);
                     return emptyTestConfig;
                 }
-                testExe.envFile = util.detokenizeVariables(cfgTest.envFile);
+                testExe.envFile = await util.detokenizeVariables(cfgTest.envFile);
             }
 
             if (cfgTest.env !== undefined) {
@@ -124,7 +124,7 @@ export async function getConfig(workspaceFolder: vscode.WorkspaceFolder, log: lo
                         log.error(`Settings: Environment variable value must be a string`, true)
                         return emptyTestConfig;
                     }
-                    testEnvMap.set(cfgEnvvar.name, cfgEnvvar.value);
+                    testEnvMap.set(cfgEnvvar.name, await util.detokenizeVariables(cfgEnvvar.value));
                 }
                 testExe.env = testEnvMap;
             }

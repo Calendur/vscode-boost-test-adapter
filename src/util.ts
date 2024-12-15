@@ -6,8 +6,10 @@ export function stringHash(s: string): string {
     return crypto.createHash("sha1").update(s).digest("hex");
 }
 
+
+const commandRegex = new RegExp(/\${command:(.*?)}/);
 // detokenizeVariables is based on https://github.com/DominicVonk/vscode-variables
-export function detokenizeVariables(rawValue: string, recursive = false): string {
+export async function detokenizeVariables(rawValue: string, recursive = false): Promise<string> {
     let workspaces = vscode.workspace.workspaceFolders;
     let workspace = vscode.workspace.workspaceFolders?.length ? vscode.workspace.workspaceFolders[0] : null;
     let activeFile = vscode.window.activeTextEditor?.document;
@@ -35,5 +37,14 @@ export function detokenizeVariables(rawValue: string, recursive = false): string
     rawValue = rawValue.replace(/\${fileDirname}/g, parsedPath.dir.substr(parsedPath.dir.lastIndexOf(path.sep) + 1));
     rawValue = rawValue.replace(/\${cwd}/g, parsedPath.dir);
     rawValue = rawValue.replace(/\${pathSeparator}/g, path.sep);
+    while (true) {
+        const commandRegexResult = commandRegex.exec(rawValue);
+        if (commandRegexResult && commandRegexResult.length == 2) {
+            const commandResult = await vscode.commands.executeCommand(commandRegexResult[1], "") as string;
+            rawValue = rawValue.replace(commandRegexResult[0], commandResult);
+        } else {
+            break;
+        }
+    }
     return rawValue;
 }

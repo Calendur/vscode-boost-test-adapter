@@ -74,6 +74,7 @@ export class TestExecutable {
         const session = await this.run(['--color_output=no', '--list_content=DOT']);
         let output = '';
         let exit: number;
+        this.log.info('  run finished');
 
         session.stderr.on('line', line => output += line);
 
@@ -394,7 +395,12 @@ export class TestExecutable {
         if (envMap !== undefined) {
             options.env = createEnvForSpawn(envMap);
         }
-        const process = spawn(this.absPath, args, options);
+        var process : ChildProcess;
+        if (this.absPath.includes('.bat')) {
+            process = spawn('cmd', ['/c', this.absPath, ...args], options);
+        } else {
+            process = spawn(this.absPath, args, options);
+        }
         let stdout: ReadLine | undefined;
         let stderr: ReadLine | undefined;
 
