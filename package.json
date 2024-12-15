@@ -1,9 +1,9 @@
 {
   "name": "boost-test-adapter-calendur",
-  "version": "3.6.8",
-  "displayName": "Boost.Test Run/Debug",
+  "version": "3.6.9",
+  "displayName": "Boost.Test Adapter Calendur",
   "description": "Run or debug your Boost.Test tests in the Sidebar of Visual Studio Code",
-  "author": "Robert Engels",
+  "author": "Thomas Rohe",
   "publisher": "Calendur",
   "license": "MIT",
   "homepage": "https://github.com/Calendur/vscode-boost-test-adapter",
