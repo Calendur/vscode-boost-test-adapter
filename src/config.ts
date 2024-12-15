@@ -3,8 +3,8 @@ import * as logger from './logger';
 import * as util from './util';
 
 // IMPORTANT: Use the same name in package.json!
-export const BoostTestAdapterExtensionName = "boost-test-adapter-robaho";
-export const BoostTestAdapterConfig = "boost-test-adapter-robaho";
+export const BoostTestAdapterExtensionName = "boost-test-adapter-calendur";
+export const BoostTestAdapterConfig = "boost-test-adapter-calendur";
 
 export interface TestExe {
     path: string;

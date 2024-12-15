@@ -1,18 +1,18 @@
 {
-  "name": "boost-test-adapter-robaho",
-  "version": "3.6.7",
+  "name": "boost-test-adapter-calendur",
+  "version": "3.6.8",
   "displayName": "Boost.Test Run/Debug",
   "description": "Run or debug your Boost.Test tests in the Sidebar of Visual Studio Code",
   "author": "Robert Engels",
-  "publisher": "robaho",
+  "publisher": "Calendur",
   "license": "MIT",
-  "homepage": "https://github.com/robaho/vscode-boost-test-adapter",
+  "homepage": "https://github.com/Calendur/vscode-boost-test-adapter",
   "repository": {
     "type": "git",
-    "url": "https://github.com/robaho/vscode-boost-test-adapter.git"
+    "url": "https://github.com/Calendur/vscode-boost-test-adapter.git"
   },
   "bugs": {
-    "url": "https://github.com/robaho/vscode-boost-test-adapter/issues"
+    "url": "https://github.com/Calendur/vscode-boost-test-adapter/issues"
   },
   "categories": [
     "Testing"
@@ -56,7 +56,7 @@
     "configuration": {
       "title": "Boost.Test Run/Debug",
       "properties": {
-        "boost-test-adapter-robaho.tests": {
+        "boost-test-adapter-calendur.tests": {
           "description": "Test configurations.",
           "type": "array",
           "items": {
@@ -132,44 +132,44 @@
     },
     "commands": [
       {
-        "command": "boost-test-adapter-robaho.copyTestItemPath",
+        "command": "boost-test-adapter-calendur.copyTestItemPath",
         "title": "Copy Path"
       },
       {
-        "command": "boost-test-adapter-robaho.copyTestItemRelativePath",
+        "command": "boost-test-adapter-calendur.copyTestItemRelativePath",
         "title": "Copy Relative Path"
       },
       {
-        "command": "boost-test-adapter-robaho.copyBoostTestId",
+        "command": "boost-test-adapter-calendur.copyBoostTestId",
         "title": "Copy Boost.Test ID"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "command": "boost-test-adapter-robaho.copyTestItemPath",
+          "command": "boost-test-adapter-calendur.copyTestItemPath",
           "when": "false"
         },
         {
-          "command": "boost-test-adapter-robaho.copyTestItemRelativePath",
+          "command": "boost-test-adapter-calendur.copyTestItemRelativePath",
           "when": "false"
         },
         {
-          "command": "boost-test-adapter-robaho.copyBoostTestId",
+          "command": "boost-test-adapter-calendur.copyBoostTestId",
           "when": "false"
         }
       ],
       "testing/item/context": [
         {
-          "command": "boost-test-adapter-robaho.copyTestItemPath",
+          "command": "boost-test-adapter-calendur.copyTestItemPath",
           "group": "copypath@1"
         },
         {
-          "command": "boost-test-adapter-robaho.copyTestItemRelativePath",
+          "command": "boost-test-adapter-calendur.copyTestItemRelativePath",
           "group": "copypath@2"
         },
         {
-          "command": "boost-test-adapter-robaho.copyBoostTestId",
+          "command": "boost-test-adapter-calendur.copyBoostTestId",
           "group": "copypath@3",
           "when": "testId =~ /^[a-f0-9]+/[a-f0-9]+/.+$/"
         }

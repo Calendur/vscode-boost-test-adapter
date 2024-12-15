@@ -21,7 +21,7 @@ from the Testing sidebar of VS Code.
 
 A configuration will automatically be created in the workspace settings using **glob**.
 ```json
-    "boost-test-adapter-robaho.tests": [
+    "boost-test-adapter-calendur.tests": [
         {
             // testExecutables must be provided
             "testExecutables": [
@@ -108,6 +108,7 @@ A configuration will automatically be created in the workspace settings using **
 
 ## Credits
 This extension is based on code from these extensions:
+- https://github.com/robaho/vscode-boost-test-adapter
 - https://github.com/feheren/vscode-boost-test-adapter
 - https://github.com/firoorg/vscode-boost-test-adapter
 - https://github.com/newdigate/vscode-boost-test-adapter.git
