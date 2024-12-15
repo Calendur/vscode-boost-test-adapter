@@ -395,12 +395,7 @@ export class TestExecutable {
         if (envMap !== undefined) {
             options.env = createEnvForSpawn(envMap);
         }
-        var process : ChildProcess;
-        if (this.absPath.includes('.bat')) {
-            process = spawn('cmd', ['/c', this.absPath, ...args], options);
-        } else {
-            process = spawn(this.absPath, args, options);
-        }
+        const process = spawn(this.absPath, args, options);
         let stdout: ReadLine | undefined;
         let stderr: ReadLine | undefined;
 
