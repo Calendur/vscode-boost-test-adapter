@@ -1,4 +1,4 @@
-# Boost.Test Run/Debug
+# Boost.Test Adapter
 This extension allows you to run your [Boost.Test](https://github.com/boostorg/test) tests
 from the Testing sidebar of VS Code.
 
@@ -129,6 +129,8 @@ This extension is based on code from these extensions:
 - https://github.com/newdigate/vscode-boost-test-adapter.git
 
 ## Changelog
+* Update 3.6.11
+  * Bugfix: Test Status was not properly shown when a test failed on linux systems.
 * Update 3.6.8-3.6.10
   * Allow commands inside paths and environment variables.
   * Forked from https://github.com/robaho/vscode-boost-test-adapter.
