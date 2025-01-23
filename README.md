@@ -129,7 +129,7 @@ This extension is based on code from these extensions:
 - https://github.com/newdigate/vscode-boost-test-adapter.git
 
 ## Changelog
-* Update 3.6.11
+* Update 3.6.11-3.6.12
   * Bugfix: Test Status was not properly shown when a test failed on linux systems.
 * Update 3.6.8-3.6.10
   * Allow commands inside paths and environment variables.
