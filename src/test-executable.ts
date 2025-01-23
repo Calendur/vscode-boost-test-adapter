@@ -23,12 +23,18 @@ export class TestExecutable {
     runningTests: TestSession[] = [];
     testItem: vscode.TestItem;
 
+    /**
+     * The following regular expressions will parse the Boost Test outputs.
+     * For a list of potential boost test outputs, see:
+     *   https://www.boost.org/doc/libs/1_87_0/libs/test/doc/html/boost_test/test_output/log_formats/log_human_readable_format.html
+     * But this list is not really 100% accurate. 
+     */
     private readonly regexEnterTestSuite = /^(.+): Entering test suite "(\w+)"$/;
     private readonly regexLeaveTestSuite = /^(.+): Leaving test suite "(\w+)"(?:; testing time: (\d+)(\w+))?$/;
     private readonly regexEnterTestCase = /^(.+): Entering test case "(\w+)"$/;
     private readonly regexLeaveTestCase = /^(.+): Leaving test case "(\w+)"(?:; testing time: (\d+)(\w+))?$/;
-    private readonly regexTestCaseError = /^(.+)\(?([0-9]+)\)?: error: in "([\w\/]+)": (.+)$/;
-    private readonly regexTestCaseFatalError = /^(.+)\(?([0-9]+)\)?: fatal error: in "([\w\/]+)": (.+)$/;
+    private readonly regexTestCaseError = /^(.+?)\(?([0-9]+)\)?: error: in "([\w\/]+)": (.+)$/;
+    private readonly regexTestCaseFatalError = /^(.+?)\(?([0-9]+)\)?: fatal error: in "([\w\/]+)": (.+)$/;
 
     constructor(
         readonly testExeTestItemId: string,
