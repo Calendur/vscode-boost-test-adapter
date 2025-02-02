@@ -43,8 +43,10 @@ function parseTestModuleLabel(node: Node): string {
 //  a) node_name|file_path(line_number)
 //  b) node_name|file_path(line_number)|some_other_stuff
 //
-const regexLabelWith2Parts = /^(\w+)\|(.+)\((\d+)\)$/;
-const regexLabelWith3Parts = /^(\w+)\|(.+)\((\d+)\)\|.+$/;
+// where node_name can contain <> if this is a boost template test. Otherwise the node_name consist of alphanumeric values and _
+//
+const regexLabelWith2Parts = /^([a-zA-Z0-9_<>]+)\|(.+)\((\d+)\)$/;
+const regexLabelWith3Parts = /^([a-zA-Z0-9_<>]+)\|(.+)\((\d+)\)\|.+$/;
 
 function parseLabel(node: Node): LabelInfo {
     const label = node.attr_list.find(a => a.id === 'label');

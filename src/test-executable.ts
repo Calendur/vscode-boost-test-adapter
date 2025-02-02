@@ -29,12 +29,12 @@ export class TestExecutable {
      *   https://www.boost.org/doc/libs/1_87_0/libs/test/doc/html/boost_test/test_output/log_formats/log_human_readable_format.html
      * But this list is not really 100% accurate. 
      */
-    private readonly regexEnterTestSuite = /^(.+): Entering test suite "(\w+)"$/;
-    private readonly regexLeaveTestSuite = /^(.+): Leaving test suite "(\w+)"(?:; testing time: (\d+)(\w+))?$/;
-    private readonly regexEnterTestCase = /^(.+): Entering test case "(\w+)"$/;
-    private readonly regexLeaveTestCase = /^(.+): Leaving test case "(\w+)"(?:; testing time: (\d+)(\w+))?$/;
-    private readonly regexTestCaseError = /^(.+?)\(?([0-9]+)\)?: error: in "([\w\/]+)": (.+)$/;
-    private readonly regexTestCaseFatalError = /^(.+?)\(?([0-9]+)\)?: fatal error: in "([\w\/]+)": (.+)$/;
+    private readonly regexEnterTestSuite = /^(.+): Entering test suite "([a-zA-Z0-9_<>]+)"$/;
+    private readonly regexLeaveTestSuite = /^(.+): Leaving test suite "([a-zA-Z0-9_<>]+)"(?:; testing time: (\d+)(\w+))?$/;
+    private readonly regexEnterTestCase = /^(.+): Entering test case "([a-zA-Z0-9_<>]+)"$/;
+    private readonly regexLeaveTestCase = /^(.+): Leaving test case "([a-zA-Z0-9_<>]+)"(?:; testing time: (\d+)(\w+))?$/;
+    private readonly regexTestCaseError = /^(.+?)\(?([0-9]+)\)?: error: in "([a-zA-Z0-9_<>\/]+)": (.+)$/;
+    private readonly regexTestCaseFatalError = /^(.+?)\(?([0-9]+)\)?: fatal error: in "([a-zA-Z0-9_<>\/]+)": (.+)$/;
 
     constructor(
         readonly testExeTestItemId: string,
@@ -358,7 +358,7 @@ export class TestExecutable {
         const boostTestIds = testidutil.createBoostTestIdsFrom(testItems);
         // If there are no valid boost test IDs then we run all the tests.
         if (boostTestIds.length > 0) {
-            args = args.concat(['-t', boostTestIds.join(':')]);
+            args = args.concat(['-t', boostTestIds.join(':').replace('<', '\\<').replace('>', '\\>')]);
             log.info(`Debugging the following tests from ${this.cfg.path}:`);
             for (const boostTestId of boostTestIds) {
                 log.info(boostTestId);
